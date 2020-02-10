@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { listRepos } from '../redux/reducer';
+
+import { listRepos } from './reducer';
 
 class RepoList extends Component {
-
   componentDidMount() {
     this.props.listRepos('DavidPalomeque');
   }
-
   renderItem = ({ item }) => (
     <View style={styles.item}>
       <Text>{item.name}</Text>
     </View>
   );
-
   render() {
     const { repos } = this.props;
     return (
@@ -25,7 +23,6 @@ class RepoList extends Component {
       />
     );
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -40,14 +37,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-    let storedRepositories = state.repos.map(repo => ({ key: repo.id, ...repo }));
-    return {
-      repos: storedRepositories
-    };
+  let storedRepositories = state.repos.map(repo => ({ key: repo.id, ...repo }));
+  return {
+    repos: storedRepositories
   };
-  
-  const mapDispatchToProps = {
-    listRepos
-  };
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(RepoList);
+};
+
+const mapDispatchToProps = {
+  listRepos
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RepoList);
